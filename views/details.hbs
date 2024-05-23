@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="/details.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    {{>nav}}
+    <br>
+    <h1>Details</h1>
+    <div class="container">
+        <div class="details">
+            <div class="image">
+                <div class="slider-container">
+                    <button class="prev" onclick="plusSlides(-1)">Prev</button>
+                    <div class="slider">
+                        <div class="slide"><img src="/{{rows.photo3}}" alt="Image 1"></div>
+                        <div class="slide"><img src="/{{rows.photo1}}" alt="Image 2"></div>
+                        <div class="slide"><img src="/{{rows.photo2}}" alt="Image 3"></div>
+                    </div>
+                    <button class="next" onclick="plusSlides(1)">Next</button>
+                </div>
+            </div>
+            <div class="text">
+                    <p><b>Title &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{rows.title}}</p>
+                    <p><b>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{rows.address}}</p>
+                    <p><b>Contact &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{rows.contact}}</p>
+                    <p><b>Description : </b>{{rows.description}}</p>
+                    <p><b>Price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>Rs.{{rows.price}}</p>
+                    <p><b>Category &nbsp;&nbsp;&nbsp;&nbsp;: </b>{{rows.category}}</p>
+                    <br>
+                    <div id="booking">
+                        {{#if rows.booked_status}}
+                            {{#if tenant_auth}}
+                                <a href="/cancel_book/{{rows.property_id}}">Cancel Booking</a>
+                            {{else}}
+                                <div>
+                                    <p><b style="color:red">Property is Booked</b></p>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            <a href="/book/{{rows.property_id}}">Book</a>
+                        {{/if}}
+                    </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <br><br></br>
+    {{>Footer}}
+    
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+        showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+        showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("slide");
+        if (n > slides.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        slides[slideIndex-1].style.display = "block";  
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>    
+    {{>nav}}
+    <div id="user">
+        <span><img src="/user.png"></span>
+        <span><h2>{{username}}</h2></span>
+        <span><a id="myBooking" href="/myBooking">My Bookings</a></span>
+    </div>
+
+    
+    <div id="search">
+        <form action="/search" method="POST">
+            <input type="text" name="key"><button type="submit">Search</button>
+        </form>
+    </div>
+    
+    <hr>
+    <br>
+    <div id="container">
+        <div id="content">
+            {{#each rows}}
+            <div class="cards">
+                <div class="image">
+                    <img src="/{{this.photo1}}">
+                </div>
+                <div class="detail">
+                    <p><b>Title &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{this.title}}</p>
+                    <p><b>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>{{this.address}}</p>
+                    <p><b>Price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>Rs.{{this.price}}</p>
+                    <p><b>Category &nbsp;&nbsp;&nbsp;&nbsp;: </b>{{this.category}}</p>
+                    
+                    <p><b><a href="/details/{{this.property_id}}">Click here for details</a></b></p>
+                </div>
+            </div>
+            <br>
+            {{/each}}
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+    {{>Footer}}
+</body>
+</html>

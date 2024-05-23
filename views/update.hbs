@@ -1,0 +1,103 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/insert.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="body">
+      <br />
+      <h2>Detail of the property: </h2>
+      <form method="post" action="/update/{{this.id}}" encType="multipart/form-data" onsubmit="return isValid(event)">
+        <div id="container">
+          <div class="inputArea">
+            <div class="label">
+              <label for="title">Title : </label>
+            </div>
+            <div class="input">
+              <input type="text" id="title" name="title" required/>
+            </div>
+          </div>
+          <div class="inputArea">
+            <div class="label">
+              <label for="contact">Contact : </label>
+            </div>
+            <div class="input">
+              <input type="number" id="contact" name="contact" required/>
+            </div>
+          </div>
+          <div class="inputArea">
+            <div class="label">
+              <label for="address">Address : </label>
+            </div>
+            <div class="input">
+              <input type="text" id="address" name="address" required/>
+            </div>
+          </div>
+          <div class="inputArea">
+            <div class="label">
+              <label for="description">Description: </label>
+            </div>
+            <div class="input">
+              <input type="text" id="description" name="description" required/>
+            </div>
+          </div>
+          <div class="inputArea">
+            <div class="label">
+              <label for="category">Category : </label>
+            </div>
+            <div class="input">
+              <select name="category" id="category">
+                <option value="room">Room</option>
+                <option value="shutters">Shutters</option>
+                <option value="apartment">Apartment</option>
+              </select>
+            </div>
+          </div>
+          <div class="inputArea">
+            <div class="label">
+              <label for="price">Price : </label>
+            </div>
+            <div class="input">
+              <input type="text" id="price" name="price" required/>
+            </div>
+          </div>
+          <div class="inputArea photos">
+            <div class="label">
+              <label for="photo">Photo : </label>
+            </div>
+            <div class="input">
+              <input class="image" type="file" name="photo1" required/>
+              <input class="image" type="file" name="photo2" required/>
+              <input class="image" type="file" name="photo3" required/>
+            </div>
+          </div>
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+    <script>
+      function isValid(event) {
+        var photos = document.querySelectorAll(".image");
+        var valid = true;
+        photos.forEach((val)=>{
+          console.log(val.value)
+          var isValidExtension = /\.(jpg|jpeg|png)$/i.test(val.value);
+          if (!isValidExtension) {
+            event.preventDefault();
+            valid = false;
+          }
+        })
+        if(!valid){
+         alert("File type must be jpg, jpeg, png");
+         return false;
+        }
+        return true;
+      };
+    </script>
+  </body>
+</html>

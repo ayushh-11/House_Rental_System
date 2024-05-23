@@ -1,0 +1,92 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Montserrat", sans-serif;
+}
+#container{
+    width:70vw;
+    height:80vh;
+    margin:5px auto;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(160, 172, 182);
+    border-radius: 10px;
+}
+h2{
+    text-align: center;
+    color:white;
+}
+.inputArea{
+    width:90%;
+    display: flex;
+    height:50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+}
+.label{
+    width:20%;
+    font-weight: bold;
+    padding:5px 0;
+}
+.input{
+    width: 80%;
+}
+.label,.input{
+    height:100%;
+    text-align: center;
+}
+.input input{
+    height:70%;
+    width:80%;
+}
+input[type="submit"]{
+    background-color: rgb(149, 238, 158);
+    padding:10px;
+    border-radius: 10px;
+}
+#body{
+    min-height:100vh;
+    width:100vw;
+    background:url(main_bg.jpg) no-repeat center ;
+    background-size: cover;
+    margin:0px;
+}
+.input select{
+    width:80%;
+    height:80%;
+}
+.photos .input{
+    display: flex;
+}
+@media screen and (max-width: 800px){
+    #container{
+        width:90vw;
+        min-height: max-content;
+    }
+    
+}
+@media screen and (max-width: 550px){
+    .inputArea{
+        width:95%;
+    }
+    .label{
+        width:20%;
+    }
+    .input{
+        width:80%;
+    }
+}
+.photos{
+    min-height: fit-content;
+    border:none;
+}
+@media screen and (max-width: 1050px){
+    .photos .input{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

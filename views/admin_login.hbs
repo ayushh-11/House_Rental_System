@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="body">
+        
+        <div id="h1"><h1>Welcome as Owner <a href="/">Go to home page</a></h1></div>
+        <div id="container">
+            <div class="partition" id="loginUser">
+                
+                <h2>login</h2>
+                <hr><br><br><br><br>
+               
+                <form action="/admin_login" onsubmit="return validateLogin(event)" method="post">
+                    <label for="lemail">Email</label><br>
+                    <input type="text" name="lemail" id="lemail"/><br>
+                    <span id="errLEmail"></span>
+                    <br>
+                
+                
+                    <label for="lpassword">Password</label><br>
+                    <input type="password" name="lpassword" id="lpassword"/><br>
+                    <span id="errLPassword">
+                        {{#if this.message}}
+                            {{this.message}}
+                        {{/if}}
+                    </span>
+
+                    <br><br>
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+            <div class="partition" id="registerUser">
+                <h2>Register User</h2>
+                <hr><br><br>
+               
+                <form action="/admin_register" onsubmit="return validateRegister(event)" method="post">
+                    <label for="username">Full Name</label><br>
+                    <input type="text" name="username" id="username"/><br>
+                    <span id="errName"></span>
+                    
+                    <br>
+                    <label for="username">Email</label><br>
+                    <input type="text" name="email" id="email"/><br>
+                    <span id="errEmail">
+                        {{#if this.emailMessage}}
+                            {{this.emailMessage}}
+                        {{/if}}
+                    </span>
+                    <br>
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" id="password"/><br>
+                    
+                    <br>
+                    <label for="Cpassword">Confirm Password</label><br>
+                    <input type="password" name="cpassword" id="cPassword"/><br>
+                    <span id="errPassword">
+                        
+                    </span>
+                    <br>
+                    <input type="submit" value="Register">
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    {{>Footer}}
+<script>
+
+    function validateRegister(event) {
+        username = document.getElementById("username").value.trim();
+        email = document.getElementById("email").value;
+        password = document.getElementById("password").value;
+        cpassword = document.getElementById("cPassword").value;
+        error = false;
+
+        // Define the regular expression for  validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const fullNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*['-]?[a-zA-Z]+$/;
+        var passwordPattern = /^.{7,}$/;
+
+        if (username === "" || email === "" || password === "" || cpassword === "") {
+            event.preventDefault();
+            alert("All fields must be filled out");
+            error = true;
+        }
+        if (!fullNameRegex.test(username)) {
+            event.preventDefault();
+            document.getElementById("errName").innerText = "Enter valid name !"
+            error = true;
+        }
+        if (!emailRegex.test(email)) {
+            event.preventDefault();
+            document.getElementById("errEmail").innerText = "Enter valid email !"
+            error = true;
+        }
+
+        // Check password matching
+        if (!passwordPattern.test(password)) {
+            event.preventDefault();
+            document.getElementById("errPassword").innerText = "Password should be greater than 6 digits !"
+        }
+        if (password !== cpassword) {
+            event.preventDefault();
+            document.getElementById("errPassword").innerText = "Password do not match !"
+            error = true;
+        }
+        
+        return !error;
+    }
+    function validateLogin(event){
+        email = document.getElementById("lemail").value.trim();
+        password = document.getElementById("lpassword").value;
+        error = false;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email == ""){
+            event.preventDefault();
+            document.getElementById("errLEmail").innerText = "Enter email !";
+            error = true;
+        }else if(!emailRegex.test(email)){
+            event.preventDefault();
+            document.getElementById("errLEmail").innerText = "Enter valid email !";
+            error = true;
+        }
+        if(password === ""){
+            event.preventDefault();
+            document.getElementById("errLPassword").innerText = "Enter password !";
+            error = true;
+        }
+
+        return !error;
+    }
+
+</script>
+</body>
+</html>

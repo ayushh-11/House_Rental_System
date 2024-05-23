@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/details.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div id="user">
+            <img src="/user.png">
+            <h2>{{username}}</h2>
+        </div>
+        <div id="menus">
+            <a href="/dashboard">Home</a>
+        
+            <a href="/booked">View Booking</a>
+        
+            <a href="/logout">Logout </a>
+        </div>
+    </nav>
+    <br>
+    <h1>Dashboard</h1>
+    <br>
+    {{#each rows}}
+    <div class="container">
+        <div class="details">
+            <div class="image">
+                <div class="slider-container">
+                    <button class="prev" onclick="plusSlides(-1, {{@index}})">Prev</button>
+                    <div class="slider">
+                        <div class="slide"><img src="{{this.photo3}}" alt="Image 1"></div>
+                        <div class="slide"><img src="{{this.photo1}}" alt="Image 2"></div>
+                        <div class="slide"><img src="{{this.photo2}}" alt="Image 3"></div>
+                    </div>
+                    <button class="next" onclick="plusSlides(1, {{@index}})">Next</button>
+                </div>
+            </div>
+            <div class="text">
+                <p><b>Title:</b> {{this.title}}</p>
+                <p><b>Address:</b> {{this.address}}</p>
+                <p><b>Contact:</b> {{this.contact}}</p>
+                <p><b>Description:</b> {{this.description}}</p>
+                <p><b>Price:</b> Rs.{{this.price}}</p>
+                <p><b>Category:</b> {{this.category}}</p>
+                {{#if this.booked_status}}
+                <div id="booking">
+                    <p></p><a href="/admin_book/{{this.property_id}}">Cancel Booking</a>
+                    <b>Booked by {{this.booked_by}}</b></p>
+                </div>
+                {{else}}
+                    <a href="#" onclick="confirmDelete('{{this.property_id}}')"><button class="delete">Delete</button></a>
+                    <a href="/update/{{this.property_id}}"><button class="edit">Edit</button></a>
+                {{/if}}
+                
+                
+                
+            </div>
+        </div>
+    </div>
+    <br><br>
+    {{/each}}
+    <a href="/insert_data"><button class="add">Add New</button></a>
+    {{>Footer}}
+    <script>
+        function plusSlides(n, index) {
+            showSlides(index, slideIndex[index] += n);
+        }
+
+        function currentSlide(n, index) {
+            showSlides(index, slideIndex[index] = n);
+        }
+
+        function showSlides(index, n) {
+            let i;
+            let slides = document.querySelectorAll('.details')[index].querySelectorAll('.slide');
+            if (n > slides.length) { slideIndex[index] = 1; }
+            if (n < 1) { slideIndex[index] = slides.length; }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            slides[slideIndex[index] - 1].style.display = 'block';
+        }
+
+        // Initialize slide index for each card
+        let slideIndex = [];
+        document.querySelectorAll('.details').forEach((card, index) => {
+            slideIndex[index] = 1;
+            showSlides(index, slideIndex[index]);
+        });
+
+        function confirmDelete(propertyId) {
+            // Display a confirmation dialog
+            if (confirm("Are you sure you want to delete this property?")) {
+                // If user confirms, redirect to delete endpoint
+                window.location.href = "/delete/" + propertyId;
+            } else {
+                // If user cancels, do nothing
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
